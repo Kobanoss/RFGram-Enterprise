@@ -1,13 +1,11 @@
-// handle comments 
+
 function comment_handler() {
 
     var post_id = $(this).attr('id').split('-')[1];
     var msg = $("#comment-on-" + post_id).val();
 
-    // alert('comment ' + msg);
     msg = $.trim(msg);
-    // aler(msg);
-    // return;
+
     if (msg == '') {
         alert("Cannot post empty comment");
         return false;
@@ -18,7 +16,6 @@ function comment_handler() {
             msg: msg
         },
         function (data, success) {
-            //alert(data.content + '\n ' + success);
             $("#comment-on-" + post_id).val('');
 
             var comment = "<span class='comment' id='c" + data.cid + "'><a class='text-dark user-link' href='"
@@ -45,7 +42,6 @@ function comment_handler() {
         });
 }
 
-// enable or diable post button
 function enable_disable_button() {
     const com_id = this.id.split('-')[2];
     let com = this.value;
@@ -57,18 +53,15 @@ function enable_disable_button() {
 }
 
 
-// like a post
 function like_post() {
     var post_id = $(this).attr('id').split('-')[1];
     var url = "/post/" + post_id + "/like";
     $.get($SCRIPT_ROOT + url,
         function (data, success) {
-            // alert(data.result + " \nstatus: " + success);
             var likeId = "#like-" + post_id;
             var olddata = $(likeId).text();
             $(likeId).text(data.result);
 
-            // update like icon
             if (data.result > olddata) {
                 $('#l-' + post_id).addClass("liked");
                 $('#l-' + post_id).html("<i class='fas fa-heart'></i>");
@@ -80,7 +73,6 @@ function like_post() {
 }
 
 
-// delete comment
 function delete_comment(e) {
     e.preventDefault();
 
@@ -89,7 +81,6 @@ function delete_comment(e) {
 
     $.get($SCRIPT_ROOT + url,
         function (data, success) {
-            // alert('deleted');
             $("#c" + com_id).remove();
         });
 }
@@ -103,7 +94,6 @@ $(document).ready(function () {
 
     $('.make-comment').on('keyup', enable_disable_button);
 
-    // follow user
     $("#flw").click(function () {
         var t = $("#flw").text();
         if (t == "Follow") {
@@ -112,7 +102,6 @@ $(document).ready(function () {
                     username: $("#user").text()
                 },
                 function (data, success) {
-                    // alert(data.result + " status: " + success);
                     $("#flw").text('Following');
                     $("#flw").removeClass('btn-primary');
                     $("#flw").addClass('btn-secondary');
@@ -123,7 +112,6 @@ $(document).ready(function () {
                     username: $("#user").text()
                 },
                 function (data, success) {
-                    // alert(data.result + " status: " + success);
                     $("#flw").text('Follow');
                     $("#flw").removeClass('btn-secondary');
                     $("#flw").addClass('btn-primary');
@@ -132,7 +120,6 @@ $(document).ready(function () {
     });
 
 
-    // follow suggs users
     $(".flw-sug").click(function (e) {
         e.preventDefault();
 
@@ -144,25 +131,21 @@ $(document).ready(function () {
         console.log(follows_or_not);
 
         if (follows_or_not == 'Follow') {
-            // alert('to follow');
             $.post($SCRIPT_ROOT + "/follow",
                 {
                     username: username
                 },
                 function (data, success) {
-                    // alert(data.result + " status: " + success);
                     $('#s-' + user_id).text('Following');
                     $('#s-' + user_id).removeClass('text-primary');
                     $('#s-' + user_id).addClass('text-secondary');
                 });
         } else if (follows_or_not == 'Following') {
-            // alert('to follow');
             $.post($SCRIPT_ROOT + "/unfollow",
                 {
                     username: username
                 },
                 function (data, success) {
-                    // alert(data.result + " status: " + success);
                     $('#s-' + user_id).text('Follow');
                     $('#s-' + user_id).removeClass('text-secondary');
                     $('#s-' + user_id).addClass('text-primary');
@@ -174,25 +157,20 @@ $(document).ready(function () {
 
     $("textarea").val('');
 
-    // like a post
     $(".like").click(like_post);
 
-    // post new comment
     $(".post-comment").click(comment_handler);
 
-    // delete a comment 
     $(".delete-comment").click(delete_comment);
 });
 
 
-// article template
 function template(post) {
 
     let liked = '';
     let icon = 'r';
 
     if (post.liked == true) {
-        // console.log(post.pid, 'liked');
         liked = 'd';
         icon = 's';
     }
@@ -261,7 +239,6 @@ function template(post) {
 };
 
 
-// explore post template
 function explore_template(post) {
 
     let content = `<div class="col p-2 img-wrapper rounded">

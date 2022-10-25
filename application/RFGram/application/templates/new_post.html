@@ -4,12 +4,9 @@
     {{ form.hidden_tag() }}
     <div class="card">
         <div class="card-body">
-            <!-- Upload image input-->
             <div class="input-group px-2 py-2 bg-light border-0 rounded">
                 {{ form.media(id='upload', onchange='readURL(this);', class='form-control border-0') }}
-                <!-- <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0"> -->
                 {{ form.media.label(id='upload-label', for='upload', class='font-weight-light text-muted') }}
-                <!-- <label id="upload-label" for="upload" class="font-weight-light text-muted">Upload a pic</label> -->
                 <div class="input-group-append">
                     <label for="upload" class="btn btn-light m-0 px-4"> 
                         <i class="fa fa-cloud-upload mr-2 text-muted"></i>
@@ -75,7 +72,6 @@
         });
     });
 
-    /*  show uploaded image name */
     var input = document.getElementById( 'upload' );
     var infoArea = document.getElementById( 'upload-label' );
 

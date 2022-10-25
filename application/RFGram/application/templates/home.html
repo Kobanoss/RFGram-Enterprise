@@ -13,9 +13,7 @@
             load_posts(page_count++);
 
             window.onscroll = () => {
-                // check if we reached the bottom
                 if(window.innerHeight + window.scrollY >= document.body.offsetHeight && end_reached == false) {
-                    // alert("bottom");
                     load_posts(page_count++);
                 }
             }; 
@@ -23,13 +21,10 @@
 
 
         function load_posts(start) {
-            // init a new request
             const req = new XMLHttpRequest();
             req.open('POST', $SCRIPT_ROOT + '/')
 
-            // callback function when data is loaded
             req.onload = () => {
-                // extract data
                 const data = JSON.parse(req.responseText);
                 
                 if (data.success) {
@@ -37,12 +32,9 @@
                         end_reached = true;
                         return false;
                     }
-                    // loads posts
                     data.result.forEach(post => {
-                        // add new post
                         const content = template(post);
                         $('.special').append(content);
-                        // add event handlers
                         document.querySelector(`#sh-${post.pid}`).onclick = link_share;
                         document.querySelector(`#l-${post.pid}`).onclick = like_post;
                         document.querySelector(`#c-${post.pid}`).onclick = comment_handler;
@@ -55,11 +47,9 @@
                     alert("Something went wrong", data.result);
             };
 
-            // add data
             const param = new FormData();
             param.append('start', start);
 
-            // Send request
             req.send(param);
         };
     
