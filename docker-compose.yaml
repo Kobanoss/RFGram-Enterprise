@@ -6,6 +6,9 @@ services:
       context: ./application/RFGram
       dockerfile: Dockerfile
     command: gunicorn --bind 0.0.0.0:5000 RFGram:app
+    volumes:
+      - static_media:/home/app/application/application/static/media
+      - static_profile_pics:/home/app/application/application/static/profile_pics
     env_file:
       - ./services/env/app.env
     expose:
@@ -18,6 +21,9 @@ services:
     build: 
       context: ./services/nginx
       dockerfile: Dockerfile
+    volumes:
+      - static_media:/home/app/application/application/static/media
+      - static_profile_pics:/home/app/application/application/static/profile_pics
     ports:
       - 80:80
     depends_on:
@@ -51,3 +57,5 @@ services:
 volumes:
   postgres_data:
   dbeaver_workspace:
+  static_media:
+  static_profile_pics:
