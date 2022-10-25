@@ -1,0 +1,1 @@
+from .forms import RegistrationForm, LoginForm, PostForm, AccountUpdateForm, CommentPostForm

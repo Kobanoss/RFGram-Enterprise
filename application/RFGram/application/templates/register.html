@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+
+    <script type=text/javascript src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+
+
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>FlaskApp</title>
+    {% endif %}
+
+
+    <style>
+        @media (min-width: 768px) {
+            .h-md-100 {
+                top: 0px;
+                height: 100vh;
+            }
+        }
+
+        .left-landing {
+        {#background: center / cover;#}{#backdrop-filter: blur(6px);#}
+
+        }
+
+        .bottom-align-text {
+            position: absolute;
+            bottom: 10px;
+            left: 10px
+        }
+
+        .background-pic {
+            background: center / cover;
+            background-image: url("../static/cover/cover.jpg");
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-light border-bottom fixed-top">
+        <div class="container">
+            <a class="navbar-brand mr-4" href="/">RFGram</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+                <div class="navbar-nav mr-auto">
+                </div>
+                <!-- Navbar Right Side -->
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="{{ url_for('views.login') }}">Login</a>
+                    <a class="nav-item nav-link" href="{{ url_for('views.register') }}">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<main role="main">
+    <div class="d-md-flex h-md-100 align-items-center background-pic">
+
+        <!-- First Half -->
+
+        <div class="col-md-8 p-0 h-md-100 left-landing">
+            <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+                <div class="logoarea pt-5 pb-5">
+                    <h1 class="text-uppercase text-light"></h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Half -->
+
+        <div class="col-md-4 p-0 h-md-100" style="">
+            <div class="d-md-flex float-left align-items-center h-md-100 p-5 justify-content-center">
+                <div class="">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="card">
+                    <form method="POST" action="">
+                        {{ form.hidden_tag() }}
+                        <div class="card-header">
+                            <h5 class="card-titile text-center">Register</h5>
+                        </div>
+                        <fieldset class="card-body">
+                            <div class="form-group">
+                                {{ form.username(class="form-control rounded-0", placeholder="Username") }}
+                                {% if form.username.errors %}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        {% for error in form.username.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </small>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.password(class="form-control rounded-0", placeholder="Password") }}
+                                {% if form.password.errors %}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        {% for error in form.password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </small>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.confirm_password(class="form-control rounded-0", placeholder="Confirm Password") }}
+                                {% if form.confirm_password.errors %}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        {% for error in form.confirm_password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </small>
+                                {% endif %}
+                            </div>
+                            <ul class="list-group list-group-flush">
+
+                                {{ form.submit(class="btn btn-primary") }}
+                                <li class="list-group-item text-center ">
+                                    <small>Already an account? <a href="{{ url_for('views.login') }}">Login</a></small>
+                                </li>
+                            </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

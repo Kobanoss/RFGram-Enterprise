@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="login-form">
+        <div class="card" style="width:17rem;">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <div class="card-header">
+                    <h5 class="card-titile text-center">Sign In</h5>
+                </div>
+                <fieldset class="card-body">
+                    <div class="form-group">
+                        {{ form.username(class="form-control rounded-0", placeholder="Username") }}
+                        {% if form.username.errors %}
+                            <small id="emailHelp" class="form-text text-muted">
+                                {% for error in form.username.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </small>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password(class="form-control rounded-0", placeholder="Password") }}
+                        {% if form.password.errors %}
+                            <small id="emailHelp" class="form-text text-muted">
+                                {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </small>
+                        {% endif %}
+                    </div>
+                    <div class="form-group form-check">
+                        {{ form.remember(class="form-check-input") }} {{ form.remember.label(class="form-check-label mt-1") }}
+                        <!--    <small class="float-right">Forgot password?</a></small> -->
+                    </div>
+
+                <ul class="list-group list-group-flush">
+
+                    {{ form.submit(class="btn btn-primary") }}
+                    <li class="list-group-item text-center ">
+                        <small>Don't have an account? <a href="{{ url_for('views.register') }}">Register</a></small>
+                    </li>
+                </ul>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

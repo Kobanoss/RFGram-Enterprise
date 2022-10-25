@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block otherstuff %}
+<script>
+        let page_count = 1;
+        let end_reached = false;
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            load_posts(page_count++);
+
+            window.onscroll = () => {
+                // check if we reached the bottom
+                if(window.innerHeight + window.scrollY >= document.body.offsetHeight && end_reached == false) {
+                    // alert("bottom");
+                    load_posts(page_count++);
+                }
+            }; 
+        });
+
+
+        function load_posts(start) {
+            // init a new request
+            const req = new XMLHttpRequest();
+            req.open('POST', $SCRIPT_ROOT + '/explore')
+
+            // callback function when data is loaded
+            req.onload = () => {
+                // extract data
+                const data = JSON.parse(req.responseText);
+                
+                if (data.success) {
+                    if(data.result.length === 0) {
+                        end_reached = true;
+                        return false;
+                    }
+                    // loads posts
+                    data.result.forEach(post => {
+                        // add new post
+                        const content = explore_template(post);
+                        $('#posts').append(content);
+                    });
+
+                }
+                else
+                    alert("Something went wrong", data.result);
+            };
+
+            // add data
+            const param = new FormData();
+            param.append('start', start);
+
+            // Send request
+            req.send(param);
+        };
+    
+    </script>
+
+
+
+<div class="col-10">
+    <h4 class="text-muted">Explore</h4>
+    <hr>
+    
+    <div class="row row-cols-3 mb-4" id="posts">
+    </div>
+</div>
+
+{% endblock otherstuff %}

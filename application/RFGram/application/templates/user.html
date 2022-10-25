@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="row user info">
+            <div class="col-md-3 align-items-center">
+                <img  class="pfp-img rounded-circle" src="../../{{ get_file_url('profile_pics/' + user.image_file) }}">
+            </div>
+            <div class="row">
+                <div class="m-4">
+                    <h2 id="user">{{ user.username }}</h2>
+
+                    <ul class="list-group list-group-horizontal bg-light">
+                        <li class="user-info list-group-item border-0 bg-light">{{ user.posts.__len__() }} <span class="text-dark font-weight-normal" href="#posts">Posts</span></li>
+                        <li class="user-info list-group-item border-0 bg-light">{{ user.get_followers_count(user) }} <span  class="text-dark font-weight-normal" href="">Follower</span></li>
+                        <li class="user-info list-group-item border-0 bg-light">{{ user.follows.count() }} <span class="text-dark font-weight-normal" href="">Following</span></li>
+                    </ul>
+                </div>
+                
+                {% if current_user.is_authenticated %}
+                    <div class="">
+                        <small class="">
+                                {% if current_user.is_following(user) %}
+                                    <button class="btn btn-secondary" id="flw">Following</button>
+                                {% elif user != current_user %}
+                                    <button class="btn btn-primary" id="flw">Follow</button>
+                                {% endif %}
+                        </small>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row row-cols-3 mb-4" id="posts">
+        {% for post in posts %}
+            <div class="col p-2 img-wrapper rounded">
+                {% if post.media %}
+                    <a href="{{ url_for('views.get_post', post_id=post.pid) }}"><img class="post-img" src="../../{{ get_file_url('media/mid' + post.media) }}">
+                        </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,226 @@
+body {
+    background:rgba(250,250,250,1);
+    color: #333333;
+    font-size: 14px;
+}
+
+.main-content {
+    margin-top: 6rem;
+}
+
+
+.navbar {
+    background-color: white;
+}
+
+.article {
+    width: 100%;
+    margin-bottom: 5rem;
+}
+
+.post-media {
+    /* padding-left: 20px;
+    padding-right: 20px; */
+}
+
+.card-header {
+    background-color: #ffffff;
+}
+
+.post-meta-data {
+    margin-top: -15px;
+    margin-bottom: 5px;
+}
+
+
+.liked {
+    color:#ec4a64;
+}
+
+.like-counter {
+    margin-top: 2px;
+    font-weight: bold;
+    font-size: 15px;
+} 
+
+
+.comment{
+    display: block;
+    font-size: 14px;
+}
+
+
+a.user-link {
+    color:#222222;
+    font-weight: bold;
+}
+
+.account-img {
+    height: 30px;
+    width: 30px;
+    margin-right: 5px;
+}
+
+.side-account-img {
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+}
+
+.make-comment {
+    font-size: 15px;
+}
+
+
+.pfp-img {
+    height: 125px;
+    width: 125px;
+}
+
+.up-info {
+    font-size: 23px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+
+.login-form {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+.comments {
+    justify-content: space-between;
+}
+
+.delete-comment {
+    display:none;
+}
+
+span.comment:hover small.delete-comment {
+    display: block;
+}
+
+.notif {
+    max-height: 9rem;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+
+.home-comment-box {
+    justify-content: space-between;
+    padding: 0rem 0.5rem 0 0.5rem;
+}
+
+
+.comment-box {
+    max-width: inherit;
+    word-wrap: break-word;
+    resize: none;
+    border: none;
+    margin-top: 0.5rem;
+    background-color: inherit;
+}
+
+textarea.comment-box { overflow: hidden; } 
+
+
+#upload {
+    opacity: 0;
+}
+
+#upload-label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+}
+
+.modal-dialog {
+    width: 40rem;
+    margin: auto;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.post-caption-box {
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
+.caption-box {
+    max-width: inherit;
+    word-wrap: break-word;
+    resize: none;
+    border: none;
+}
+
+textarea.caption-box { overflow: hidden; }
+
+
+#flw {
+    margin-top: 1.9rem;
+}
+
+.user-info {
+    padding: 0.2rem 1rem 2rem 0rem;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.img-wrapper
+{
+    position: relative;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+}
+
+.post-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+#imageResult {
+    max-height: 27rem;
+}
+
+.main-img-wrapper {
+    max-height: 35rem;
+    max-width: inherit;
+    overflow: hidden;
+}
+
+.suggs {
+    border: none;
+    background: inherit;
+}
+
+.side-account-img {
+    height: 50px;
+    width: 50px;
+}
+
+.card-img-top {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+
+.nav-icons {
+    /* color: rgba(0,0,0,.5); */
+    font-size: 17px;
+    margin-right: 0.8rem;
+}

@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block content %}
+    <style>
+        .special {
+            margin-right: 25%;
+        }
+    </style>
+    <script>
+        let page_count = 1;
+        let end_reached = false;
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            load_posts(page_count++);
+
+            window.onscroll = () => {
+                // check if we reached the bottom
+                if(window.innerHeight + window.scrollY >= document.body.offsetHeight && end_reached == false) {
+                    // alert("bottom");
+                    load_posts(page_count++);
+                }
+            }; 
+        });
+
+
+        function load_posts(start) {
+            // init a new request
+            const req = new XMLHttpRequest();
+            req.open('POST', $SCRIPT_ROOT + '/')
+
+            // callback function when data is loaded
+            req.onload = () => {
+                // extract data
+                const data = JSON.parse(req.responseText);
+                
+                if (data.success) {
+                    if(data.result.length === 0) {
+                        end_reached = true;
+                        return false;
+                    }
+                    // loads posts
+                    data.result.forEach(post => {
+                        // add new post
+                        const content = template(post);
+                        $('.special').append(content);
+                        // add event handlers
+                        document.querySelector(`#sh-${post.pid}`).onclick = link_share;
+                        document.querySelector(`#l-${post.pid}`).onclick = like_post;
+                        document.querySelector(`#c-${post.pid}`).onclick = comment_handler;
+                        document.querySelector(`#c-${post.pid}`).disabled = true;
+                        document.querySelector(`#comment-on-${post.pid}`).onkeyup = enable_disable_button;
+                    });
+
+                }
+                else
+                    alert("Something went wrong", data.result);
+            };
+
+            // add data
+            const param = new FormData();
+            param.append('start', start);
+
+            // Send request
+            req.send(param);
+        };
+    
+    </script>
+
+{% endblock content %}
+{% block sidebar %}
+<div class="col-md-3 sidebar" style="position: fixed; float: right; right: 11%;">
+    <div class="content-section">
+    <h4 class="pb-2">
+        <img  class="side-account-img rounded-circle" src="{{get_file_url('profile_pics/' + current_user.image_file)}}">
+        <a class = "text-dark" href="{{ url_for('views.get_user', username=current_user.username) }}">{{ current_user.username }}</a>
+    </h4>
+    <small class='text-muted text-uppercase'>Suggestions for you to follow</small>
+    <ul class="list-group suggs">
+        {% for user in current_user.get_user_suggestion() %}
+            <li class="list-group-item list-group-item">
+                <img  class="account-img rounded-circle" src="{{get_file_url('profile_pics/' + user.image_file) }}">
+                <a id="flw-{{user.uid}}" class="text-dark user-link" href="{{ url_for('views.get_user', username=user.username) }}">
+                    {{ user.username }}
+                </a>
+                {% if current_user.is_following(user) %}
+                    <a href="" class="mt-1 float-right flw-sug text-secondary" id="s-{{user.uid}}">Following</a>
+                {% elif user != current_user %}
+                    <a href="" class="mt-1 float-right flw-sug text-primary" id="s-{{user.uid}}">Follow</a>
+                {% endif %}
+                
+            </li>
+        {% else %}
+            <small class="text-muted">You've followed everyone! Enjoy asshole.</small>
+        {% endfor %}
+    </ul>
+    </div>
+</div>
+{% endblock sidebar %} 
