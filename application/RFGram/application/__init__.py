@@ -3,6 +3,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 from .config import DB_CONF
 from .config import APP_CONF
@@ -13,17 +15,24 @@ for param, value in APP_CONF.PARAMETERS.items():
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+admin = Admin(app, name='RFGram', template_mode='bootstrap3')
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
 from .routes import views
-from .models.models import User
+from .models.models import User, Post, Comment, Notif
 
 app.register_blueprint(views, url_prefix='/')
 
-if not path.exists(APP_CONF.PARAMETERS['SQLALCHEMY_DATABASE_URI']):
-    with app.app_context():
-        db.create_all()
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Post, db.session))
+admin.add_view(ModelView(Comment, db.session))
+admin.add_view(ModelView(Notif, db.session))
+
+
+with app.app_context():
+    db.create_all()
+    db.session.commit()
 
