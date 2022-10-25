@@ -15,7 +15,7 @@ RUN apt-get update && \
 RUN pip install --upgrade pip
 RUN pip install flake8==5.0.4
 COPY . /usr/src/app/
-RUN flake8 -extend-ignore E501,F401 .
+RUN flake8 --extend-ignore E501,F401 .
 
 
 COPY ./requirements.txt .
@@ -34,7 +34,7 @@ RUN addgroup --system app && adduser --system --group app
 
 
 ENV HOME=/home/app
-ENV APP_HOME=/home/app/web
+ENV APP_HOME=/home/app/application
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
