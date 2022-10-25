@@ -28,3 +28,4 @@ Werkzeug==2.2.2
 wrapt==1.14.1
 WTForms==3.0.1
 gunicorn==20.1.0
+psycopg2-binary==2.9.4
