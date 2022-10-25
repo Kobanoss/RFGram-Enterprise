@@ -44,9 +44,9 @@ class User(db.Model, UserMixin):
     def get_notifs(self):
         if self.new_notif():
             limit = len(self.notifs) - self.notif_count
-            l = self.notifs[-limit:]
-            l.reverse()
-            return l
+            notif_list = self.notifs[-limit:]
+            notif_list.reverse()
+            return notif_list
 
     def get_old_notifs(self):
         limit = len(self.notifs) - self.notif_count
@@ -55,11 +55,11 @@ class User(db.Model, UserMixin):
         db.session.commit()
 
         if limit == 0:
-            l = self.notifs[-4:]
+            notif_list = self.notifs[-4:]
         else:
-            l = self.notifs[-4:-limit]
-        l.reverse()
-        return l
+            notif_list = self.notifs[-4:-limit]
+        notif_list.reverse()
+        return notif_list
 
     def new_notif(self):
         return len(self.notifs) > self.notif_count
@@ -71,8 +71,8 @@ class User(db.Model, UserMixin):
         return self.uid
 
     def is_following(self, user):
-        l = self.follows.filter(followers.c.follows_id == user.uid).count()
-        return l > 0
+        notif_list = self.follows.filter(followers.c.follows_id == user.uid).count()
+        return notif_list > 0
 
     def follow(self, user):
         if self.uid != user.uid:
