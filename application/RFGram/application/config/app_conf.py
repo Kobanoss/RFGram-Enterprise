@@ -1,4 +1,4 @@
-from .db_conf import DB_CONF
+from application.config.db_conf import DB_CONF
 
 
 class APP_CONF:

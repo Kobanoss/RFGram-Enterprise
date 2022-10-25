@@ -2,7 +2,7 @@ from datetime import datetime
 from flask_login import UserMixin
 import timeago
 import random
-from .imports import *
+from application.models.imports import *
 
 
 @login_manager.user_loader

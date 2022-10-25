@@ -1,1 +1,1 @@
-from .models import User, Post, Comment, Notif
+from application.models.models import User, Post, Comment, Notif

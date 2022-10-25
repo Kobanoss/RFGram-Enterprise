@@ -6,8 +6,8 @@ from flask_bcrypt import Bcrypt
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 
-from .config import DB_CONF
-from .config import APP_CONF
+from application.config import DB_CONF
+from application.config import APP_CONF
 
 app = Flask(__name__)
 for param, value in APP_CONF.PARAMETERS.items():
@@ -21,8 +21,8 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-from .routes import views
-from .models.models import User, Post, Comment, Notif
+from application.routes import views
+from application.models.models import User, Post, Comment, Notif
 
 app.register_blueprint(views, url_prefix='/')
 

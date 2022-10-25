@@ -2,7 +2,7 @@ import os
 import secrets
 from PIL import Image
 from pathlib import Path
-from .imports import *
+from application.content_utils.imports import *
 
 OUT_SIZE = {'pfp': (125, 125), 'media': (200, 200)}
 ROOT = CONTENT_CONF.ROOT
