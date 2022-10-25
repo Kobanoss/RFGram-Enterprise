@@ -15,7 +15,7 @@ RUN apt-get update && \
 RUN pip install --upgrade pip
 RUN pip install flake8==5.0.4
 COPY . /usr/src/app/
-RUN flake8 --extend-ignore E501,E402,F405,F401 .
+RUN flake8 --extend-ignore E501,E402,F405,F403,F401 .
 
 
 COPY ./requirements.txt .
