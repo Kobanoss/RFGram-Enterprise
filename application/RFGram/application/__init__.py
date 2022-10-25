@@ -35,4 +35,3 @@ admin.add_view(ModelView(Notif, db.session))
 with app.app_context():
     db.create_all()
     db.session.commit()
-
