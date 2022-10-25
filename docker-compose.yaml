@@ -8,3 +8,12 @@ services:
     command: gunicorn --bind 0.0.0.0:5000 RFGram:app
     ports:
      - 5000:5000
+
+  nginx:
+    build: 
+      context: ./services/nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - application
