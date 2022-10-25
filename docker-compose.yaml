@@ -6,8 +6,12 @@ services:
       context: ./application/RFGram
       dockerfile: Dockerfile
     command: gunicorn --bind 0.0.0.0:5000 RFGram:app
-    ports:
-     - 5000:5000
+    env_file:
+      - ./services/env/app.env
+    expose:
+      - 5000
+    depends_on:
+      - postgres
 
   nginx:
     build: 
@@ -17,3 +21,13 @@ services:
       - 80:80
     depends_on:
       - application
+
+  postgres:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./services/env/postgres.env
+
+volumes:
+  postgres_data:
