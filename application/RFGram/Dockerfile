@@ -45,10 +45,11 @@ COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache /wheels/*
 
-
+COPY ./entrypoint.sh $APP_HOME
 COPY . $APP_HOME
 
 RUN chown -R app:app $APP_HOME
 
 USER app
 
+ENTRYPOINT ["/home/app/application/entrypoint.sh"]
